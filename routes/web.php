@@ -12,3 +12,5 @@ Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
 Route::get('/auth/register', [AuthController::class, 'showRegisterForm'])->name('auth.register');
 Route::post('/auth/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/politique/privacy', function () {return view('politique.privacy');})->name('politique.privacy');
+Route::get('/politique/conditions', function () {return view('politique.conditions');})->name('politique.conditions');
