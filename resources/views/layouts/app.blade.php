@@ -33,12 +33,25 @@
 
                 {{-- Boutons "Se connecter" et "S'inscrire" --}}
                 <div class="flex items-center space-x-3">
-                    <a href="{{ route('auth.login') }}" class="py-2 px-3 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out">
-                        Se connecter
-                    </a>
-                    <a href="{{ route('auth.register') }}" class="py-2 px-3 border border-transparent rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 shadow-md transition duration-150 ease-in-out">
-                        S'inscrire
-                    </a>
+                    @guest
+                        <a href="{{ route('auth.login') }}" class="py-2 px-3 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out">
+                            Se connecter
+                        </a>
+                        <a href="{{ route('auth.register') }}" class="py-2 px-3 border border-transparent rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 shadow-md transition duration-150 ease-in-out">
+                            S'inscrire
+                        </a>
+                    @endguest
+                    @auth
+                        <div class="text-sm text-gray-500">
+                            {{ Auth::user()->name }}
+                        </div>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="py-2 px-3 border border-transparent rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 shadow-md transition duration-150 ease-in-out">
+                                Déconnexion
+                            </button>
+                        </form>
+                    @endauth
                 </div>
 
             </div>
@@ -50,33 +63,6 @@
         @yield('content')
     </main>
 
-    {{-- 3. PIED DE PAGE (Footer) --}}
-    {{-- <footer class="bg-white border-t border-gray-200 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <div class="flex-shrink-0 flex items-center">
-                    <div class="bg-blue-600 p-2 rounded-lg mr-2">
-                         <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5M12 7h2m-2 4h2"></path></svg>
-                    </div>
-                    <span class="text-lg font-bold text-blue-600 hidden sm:block">Services locaux</span>
-                </div>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-500 hover:text-gray-900 text-sm font-medium">Catégories</a>
-                    <a href="#" class="text-gray-500 hover:text-gray-900 text-sm font-medium">Rechercher</a>
-                    <a href="#" class="text-gray-500 hover:text-gray-900 text-sm font-medium">À propos</a>
-                    <a href="#" class="text-gray-500 hover:text-gray-900 text-sm font-medium">Contact</a>
-                </div>
-            </div>
-            <div class="flex items-center space-x-3">
-                <a href="/login" class="py-2 px-3 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out">
-                    Se connecter
-                </a>
-                <a href="/register" class="py-2 px-3 border border-transparent rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 shadow-md transition duration-150 ease-in-out">
-                    S'inscrire
-                </a>
-            </div>
-        </div>
-    </footer> --}}
     
     @vite('resources/js/app.js')
 </body>

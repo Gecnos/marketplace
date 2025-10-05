@@ -5,7 +5,10 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('/');
 
-Route::view('/auth/login', 'auth.login')->name('auth.login');
-Route::view('/auth/register', 'auth.register')->name('auth.register');
+Route::get('/auth/login', [AuthController::class, 'showLoginForm'])->name('auth.login');
+Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
+Route::get('/auth/register', [AuthController::class, 'showRegisterForm'])->name('auth.register');
+Route::post('/auth/register', [AuthController::class, 'register'])->name('register');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

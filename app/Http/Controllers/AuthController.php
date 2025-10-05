@@ -10,12 +10,17 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
-class RegisterController extends Controller
+class AuthController extends Controller
 {
-    public function showAuthForm()
+    public function showRegisterForm()
     {
         $categories = Category::all();
         return view('auth.register', ['categories' => $categories]);
+    }
+
+    public function showLoginForm()
+    {
+        return view('auth.login');
     }
     public function register(Request $request)
     {
@@ -23,22 +28,30 @@ class RegisterController extends Controller
             [
                 'prenom' => 'required|string|max:255',
                 'nom' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
+                'email' => 'required|string|email|max:255|unique:user',
                 'password' => 'required|string|min:8|confirmed',
                 'phone' => 'nullable|string|max:20',
                 'city' => 'nullable|string|max:255',
                 'terms' => 'accepted',
                 'accountType' => ['required', Rule::in(['client', 'provider'])],
-                'company' => 'required_if:accountType,provider|string|max:255',
+                'company' => 'required_if:accountType,provider|nullable|string|max:255',
                 'category_id' => 'required_if:accountType,provider|exists:categories,id',
+                'other_category' => 'required_if:category_id,10|nullable|string|max:255|unique:categories,name',
             ],
             [
                 'required_if' => 'The :attribute field is required when account type is provider.',
                 'category_id.exists' => 'The selected category is invalid.',
+                'other_category.required_if' => 'The other category field is required when you select \'Autre\'.',
+                'other_category.unique' => 'This category already exists.',
             ]
         );
 
         $isProvider = $validatedData['accountType'] === 'provider';
+
+        if ($isProvider && $validatedData['category_id'] == 10 && !empty($request->input('other_category'))) {
+            $newCategory = Category::create(['name' => $request->input('other_category')]);
+            $validatedData['category_id'] = $newCategory->id;
+        }
 
         $user = User::create([
             'name' => $validatedData['prenom'],

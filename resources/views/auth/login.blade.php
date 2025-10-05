@@ -43,7 +43,8 @@
                 </p>
 
                 {{-- Formulaire --}}
-                <form class="space-y-4" action="#" method="POST">
+                <form class="space-y-4" action="{{ route('login') }}" method="POST">
+                    @csrf
                     
                     {{-- Champ Email --}}
                     <div>

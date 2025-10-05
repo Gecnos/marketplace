@@ -15,7 +15,7 @@ class CheckUserRole
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $role): Response
     {
         if (!Auth::check()) {
             return redirect()->route('auth.login');
@@ -23,12 +23,10 @@ class CheckUserRole
 
         $user = Auth::user();
 
-        if ($user->role == $role){
+        if ($user->role == $role) {
             return $next($request);
         }
-        if ($user->role == 'provider'){
-            return redirect()->route('/')->with('error', 'Accès refusé. Vous devez être un Prestataire pour accéder à cette page.') ;
-        }
-        return redirect()->route('/')->with('error', 'Accès refusé. Vous devez être un Client pour accéder à cette page.') ;
+
+        return redirect()->route('/')->with('error', 'Accès refusé. Vous n\'avez pas les permissions nécessaires.');
     }
 }

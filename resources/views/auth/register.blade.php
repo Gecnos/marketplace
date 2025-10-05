@@ -4,7 +4,7 @@
 
 {{-- Initialisation de l'état Alpine.js pour gérer la bascule Client/Prestataire. 
      'client' est défini comme le type par défaut. --}}
-<div x-data="{ accountType: 'client' }" class="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-100">
+<div x-data="{ accountType: 'client', categoryId: '' }" class="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-100">
     
     <div class="max-w-lg w-full space-y-8">
         
@@ -33,6 +33,18 @@
 
             {{-- Conteneur du Formulaire --}}
             <div class="p-8">
+
+                @if ($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                        <strong class="font-bold">Oops!</strong>
+                        <span class="block sm:inline">Il y a eu quelques problèmes avec votre saisie.</span>
+                        <ul class="list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 
                 {{-- 1. Sélecteur du Type de compte (Client / Prestataire) --}}
                 <div class="mb-6">
@@ -56,8 +68,9 @@
                 </div>
 
                 {{-- 2. Formulaire d'Inscription --}}
-                <form class="space-y-4" action="#" method="POST">
-                    
+                <form class="space-y-4" action="{{ route('register') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="accountType" x-model="accountType">
                     {{-- Prénom et Nom (Champs communs) --}}
                     <div class="flex space-x-4">
                         <div class="w-1/2">
@@ -82,36 +95,49 @@
                     </div>
 
                     {{-- CHAMPS SPÉCIFIQUES PRESTATAIRE (Affichés si accountType est 'provider') --}}
-                    <div x-show="accountType === 'provider'" class="space-y-4" x-transition:enter.duration.500ms x-transition:leave.duration.300ms>
+                    <template x-if="accountType === 'provider'">
+                        <div class="space-y-4" x-transition:enter.duration.500ms x-transition:leave.duration.300ms>
                         
-                        {{-- Nom de l'entreprise --}}
-                        <div>
-                            <label for="company" class="block text-sm font-medium text-gray-700 sr-only">Nom de l'entreprise</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <input id="company" name="company" type="text" required 
-                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
-                                    placeholder="Nom de votre entreprise">
+                            {{-- Nom de l'entreprise --}}
+                            <div>
+                                <label for="company" class="block text-sm font-medium text-gray-700 sr-only">Nom de l'entreprise</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <input id="company" name="company" type="text" :required="accountType === 'provider'" 
+                                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
+                                        placeholder="Nom de votre entreprise">
+                                </div>
                             </div>
-                        </div>
-                        
-                        {{-- Catégorie (Select) --}}
-                        <div>
-                            <label for="category" class="block text-sm font-medium text-gray-700 sr-only">Catégorie</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <select id="category" name="category" required
-                                    class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-400">
-                                    <option value="" disabled selected>Sélectionnez votre domaine</option>
-                                    <option value="plomberie">Plomberie</option>
-                                    <option value="electricite">Électricité</option>
-                                    <option value="menuiserie">Menuiserie</option>
-                                    {{-- Ajouter plus d'options selon vos besoins --}}
-                                </select>
-                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                                    <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            
+                            {{-- Catégorie (Select) --}}
+                            <div>
+                                <label for="category" class="block text-sm font-medium text-gray-700 sr-only">Catégorie</label>
+                                <div class="mt-1 relative rounded-md shadow-sm">
+                                    <select id="category" name="category_id" :required="accountType === 'provider'" x-model="categoryId"
+                                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm text-gray-400">
+                                        <option value="" disabled selected>Sélectionnez votre domaine</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                                        <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- Champ pour une nouvelle catégorie --}}
+                            <div x-show="categoryId === '10'" class="space-y-4" x-transition:enter.duration.500ms x-transition:leave.duration.300ms>
+                                <div>
+                                    <label for="other_category" class="block text-sm font-medium text-gray-700 sr-only">Autre catégorie</label>
+                                    <div class="mt-1 relative rounded-md shadow-sm">
+                                        <input id="other_category" name="other_category" type="text" 
+                                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" 
+                                            placeholder="Précisez la catégorie">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </template>
                     
                     {{-- CHAMPS COMMUNS (Email, Téléphone, Ville) --}}
                     <div>
@@ -195,6 +221,7 @@
                             Créer mon compte
                         </button>
                     </div>
+                    
                 </form>
 
             </div>
