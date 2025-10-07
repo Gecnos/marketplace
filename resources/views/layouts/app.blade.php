@@ -121,7 +121,7 @@
                         <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                         <span>Paris, France</span>
                     </p> --}}
-                    <a href="#" class="text-blue-600 hover:text-blue-700 font-medium transition duration-150 block mt-2">Nous contacter</a>
+                    <a href="{{ route('contact') }}" class="text-blue-600 hover:text-blue-700 font-medium transition duration-150 block mt-2">Nous contacter</a>
                 </div>
             </div>
         </div>
