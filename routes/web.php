@@ -2,10 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('/');
+Route::get('/', [HomeController::class, 'index'])->name('welcome');
 
 Route::get('/auth/login', [AuthController::class, 'showLoginForm'])->name('auth.login');
 Route::post('/auth/login', [AuthController::class, 'login'])->name('login');
@@ -15,3 +14,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/politique/privacy', function () {return view('politique.privacy');})->name('politique.privacy');
 Route::get('/politique/conditions', function () {return view('politique.conditions');})->name('politique.conditions');
 Route::get('/contact', function () {return view('contact');})->name('contact');
+Route::get('/search', [HomeController::class, 'search'])->name('search.results');
+Route::get('/categories/{slug}', [CategoryController::class, 'show'])->name('categories.show');
