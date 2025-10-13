@@ -25,7 +25,7 @@
 
                 {{-- Liens de navigation centraux --}}
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">Catégories</a>
+                    <a href="{{ route('categories.index') }}" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">Catégories</a>
                     <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">Rechercher</a>
                     <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">À propos</a>
                     <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">Contact</a>
@@ -87,7 +87,7 @@
             <div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Services</h3>
                 <ul class="space-y-3 text-sm">
-                    <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">Toutes les catégories</a></li>
+                    <li><a href="{{ route('categories.index') }}" class="text-gray-600 hover:text-blue-600 transition duration-150">Toutes les catégories</a></li>
                     <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">Rechercher un service</a></li>
                     <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">Devenir prestataire</a></li>
                     <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">À propos de nous</a></li>

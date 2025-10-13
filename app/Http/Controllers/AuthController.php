@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -49,7 +50,10 @@ class AuthController extends Controller
         $isProvider = $validatedData['accountType'] === 'provider';
 
         if ($isProvider && $validatedData['category_id'] == 10 && !empty($request->input('other_category'))) {
-            $newCategory = Category::create(['name' => $request->input('other_category')]);
+                        $newCategory = Category::create([
+                'name' => $request->input('other_category'),
+                'slug' => Str::slug($request->input('other_category'))
+            ]);
             $validatedData['category_id'] = $newCategory->id;
         }
 
