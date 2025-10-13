@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
+Route::get ('/', function () {return view('welcome');})->name('welcome');
 
 Route::get('/', [HomeController::class, 'index'])->name('welcome');
 

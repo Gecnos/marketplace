@@ -11,16 +11,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        // Fetching only the categories, without counting providers, to avoid the 'users' table error.
-        $categories = Category::select('id', 'name')
-            ->get()
-            ->map(function ($category) {
-                return (object) [
-                    'name' => $category->name,
-                    'slug' => str()->slug($category->name),
-                    'count' => 0, // Mocking the count to 0
-                ];
-            });
+        $categories = Category::withCount('prestataires')->get();
 
         // The prestataires query is kept disabled to avoid errors.
         $prestatairesRecommandes = [];

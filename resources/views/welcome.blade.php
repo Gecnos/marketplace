@@ -37,14 +37,14 @@
         @if(isset($categories))
             @foreach($categories as $category)
             {{-- Carte de Catégorie --}}
-            <a href="{{ route('categories.show', $category->slug) }}" class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 p-4 text-center border border-gray-100">
+                        <a href="{{ route('categories.show', Illuminate\Support\Str::slug($category->name)) }}" class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 p-4 text-center border border-gray-100">
                 <div class="flex justify-center mb-3">
                     <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-xl group-hover:bg-blue-600 text-blue-600 group-hover:text-white transition duration-300">
                         <span class="text-xl font-bold">{{ strtoupper(substr($category->name, 0, 2)) }}</span>
                     </div>
                 </div>
                 <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition duration-300">{{ $category->name }}</h3>
-                <p class="text-xs text-gray-500 mt-1">{{ $category->count }} prestataires</p>
+                                <p class="text-xs text-gray-500 mt-1">{{ $category->prestataires_count }} prestataires</p>
             </a>
             @endforeach
         @else
