@@ -33,16 +33,14 @@
         <p class="text-gray-500">Des professionnels qualifiés dans tous les domaines</p>
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         @if(isset($categories))
             @foreach($categories as $category)
             {{-- Carte de Catégorie --}}
             <a href="{{ route('categories.show', $category->slug) }}" class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 p-4 text-center border border-gray-100">
                 <div class="flex justify-center mb-3">
-                    <div class="p-4 rounded-xl bg-blue-100 group-hover:bg-blue-600 text-blue-600 group-hover:text-white transition duration-300">
-                        {{-- Icône dynamique ou placeholder --}}
-                        <svg class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm0 18a8 8 0 118-8 8 8 0 01-8 8z"/><path d="M11 7h2v6h-2zM11 15h2v2h-2z"/></svg>
-                        {{-- Vous pouvez remplacer SVG par une balise img pour une icône réelle : <img src="{{ asset($category->icon_path) }}" class="h-8 w-8"> --}}
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-xl group-hover:bg-blue-600 text-blue-600 group-hover:text-white transition duration-300">
+                        <span class="text-xl font-bold">{{ strtoupper(substr($category->name, 0, 2)) }}</span>
                     </div>
                 </div>
                 <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition duration-300">{{ $category->name }}</h3>
