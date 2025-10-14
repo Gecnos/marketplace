@@ -95,6 +95,7 @@
             </div>
 
             {{-- Colonne 3 : Mon Compte --}}
+            @auth   
             <div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Mon Compte</h3>
                 <ul class="space-y-3 text-sm">
@@ -104,12 +105,13 @@
                     <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">Centre d'aide</a></li>
                 </ul>
             </div>
+            @endauth
 
             {{-- Colonne 4 : Contact --}}
             <div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Contact</h3>
                 <div class="space-y-3 text-sm text-gray-600">
-                    {{-- <p class="flex items-center space-x-2">
+                    <p class="flex items-center space-x-2">
                         <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zM4 6v.51l8 5.66 8-5.66V6H4zm0 13c0 .55.45 1 1 1h14c.55 0 1-.45 1-1V8.2l-8 5.67-8-5.67V19z"/></svg>
                         <span>contact@serviceslocaux.fr</span>
                     </p>
@@ -120,7 +122,7 @@
                     <p class="flex items-center space-x-2">
                         <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
                         <span>Paris, France</span>
-                    </p> --}}
+                    </p>
                     <a href="{{ route('contact') }}" class="text-blue-600 hover:text-blue-700 font-medium transition duration-150 block mt-2">Nous contacter</a>
                 </div>
             </div>
