@@ -88,8 +88,8 @@
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Services</h3>
                 <ul class="space-y-3 text-sm">
                     <li><a href="{{ route('categories.index') }}" class="text-gray-600 hover:text-blue-600 transition duration-150">Toutes les catégories</a></li>
-                    <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">Rechercher un service</a></li>
-                    <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">Devenir prestataire</a></li>
+                    <li><a href="{{ route('search.results') }}" class="text-gray-600 hover:text-blue-600 transition duration-150">Rechercher un service</a></li>
+                    <li><a href="{{ route('auth.register') }}" class="text-gray-600 hover:text-blue-600 transition duration-150">Devenir prestataire</a></li>
                     <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">À propos de nous</a></li>
                 </ul>
             </div>

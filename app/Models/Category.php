@@ -8,8 +8,8 @@ class Category extends Model
 {
     protected $fillable = ['name'];
 
-    public function prestataires()
+    public function users()
     {
-        return $this->hasMany(User::class, 'categorie_id')->where('role', 'provider');
+        return $this->hasMany(User::class, 'categorie_id');
     }
 }

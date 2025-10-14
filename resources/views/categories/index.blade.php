@@ -14,20 +14,18 @@
         </header>
 
         {{-- Grille des Catégories --}}
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             @foreach($categories as $category)
-                {{-- Carte de Catégorie --}}
-                <a href="{{ route('categories.show', $category->slug) }}" 
-                   class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 p-6 text-center border border-gray-100 flex flex-col items-center justify-center space-y-2">
-                    
-                    {{-- Icône --}}
-                    <div class="p-4 rounded-full bg-blue-100 group-hover:bg-blue-600 text-blue-600 group-hover:text-white transition duration-300 mb-2">
+            {{-- Carte de Catégorie --}}
+            <a href="{{ route('categories.show', $category->slug) }}" class="group bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 p-4 text-center border border-gray-100">
+                <div class="flex justify-center mb-3">
+                    <div class="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-xl group-hover:bg-blue-600 text-blue-600 group-hover:text-white transition duration-300">
                         <span class="text-xl font-bold">{{ strtoupper(substr($category->name, 0, 2)) }}</span>
                     </div>
-
-                    <h3 class="font-bold text-gray-900 group-hover:text-blue-600 transition duration-300">{{ $category->name }}</h3>
-                    <p class="text-sm font-semibold text-blue-600 mt-1">{{ $category->prestataires_count }} prestataires</p>
-                </a>
+                </div>
+                <h3 class="font-semibold text-gray-900 group-hover:text-blue-600 transition duration-300">{{ $category->name }}</h3>
+                <p class="text-xs text-gray-500 mt-1">{{ $category->prestataires_count }} prestataires</p>
+            </a>
             @endforeach
         </div>
     </div>

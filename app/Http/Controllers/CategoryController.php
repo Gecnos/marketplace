@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+
 class CategoryController extends Controller
 {
     /**
@@ -14,7 +17,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::withCount('prestataires')->get();
+        $categories = Category::all();
+
+        foreach ($categories as $category) {
+            $category->prestataires_count = User::where('categorie_id', $category->id)->where(DB::raw('LOWER(role)'), 'provider')->count();
+        }
 
         return view('categories.index', [
             'categories' => $categories,
@@ -27,20 +34,14 @@ class CategoryController extends Controller
      * @param  string  $slug
      * @return \Illuminate\View\View
      */
-    /**
-     * Display the specified category.
-     *
-     * @param  string  $slug
-     * @return \Illuminate\View\View
-     */
     public function show($slug)
     {
-        // Find the category by its slug and load its prestataires
-        $category = Category::where('slug', $slug)->with('prestataires')->firstOrFail();
+        $category = Category::where('slug', $slug)->firstOrFail();
+        $prestataires = $category->users()->where('role', 'provider')->get();
 
-        // Return the view with the category and its prestataires
         return view('categories.show', [
             'category' => $category,
+            'prestataires' => $prestataires,
         ]);
     }
 }
