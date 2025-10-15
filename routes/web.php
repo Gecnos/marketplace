@@ -21,3 +21,4 @@ Route::get('/contact', function () {return view('contact');})->name('contact');
 Route::get('/search', [HomeController::class, 'search'])->name('search.results');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/{slug}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/about_us', function () {return view('about_us');})->name('about_us');

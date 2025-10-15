@@ -26,9 +26,9 @@
                 {{-- Liens de navigation centraux --}}
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                     <a href="{{ route('categories.index') }}" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">Catégories</a>
-                    <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">Rechercher</a>
-                    <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">À propos</a>
-                    <a href="#" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">Contact</a>
+                    <a href="{{ route('search.results') }}" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">Rechercher</a>
+                    <a href="{{ route('about_us') }}" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">À propos</a>
+                    <a href="{{ route('contact') }}" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium transition duration-150 ease-in-out">Contact</a>
                 </div>
 
                 {{-- Boutons "Se connecter" et "S'inscrire" --}}
@@ -90,7 +90,7 @@
                     <li><a href="{{ route('categories.index') }}" class="text-gray-600 hover:text-blue-600 transition duration-150">Toutes les catégories</a></li>
                     <li><a href="{{ route('search.results') }}" class="text-gray-600 hover:text-blue-600 transition duration-150">Rechercher un service</a></li>
                     <li><a href="{{ route('auth.register') }}" class="text-gray-600 hover:text-blue-600 transition duration-150">Devenir prestataire</a></li>
-                    <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">À propos de nous</a></li>
+                    <li><a href="{{ route('about_us') }}" class="text-gray-600 hover:text-blue-600 transition duration-150">À propos de nous</a></li>
                 </ul>
             </div>
 
@@ -121,7 +121,7 @@
                     </p>
                     <p class="flex items-center space-x-2">
                         <svg class="h-4 w-4 text-gray-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        <span>Paris, France</span>
+                        <span>Cotonou, Bénin</span>
                     </p>
                     <a href="{{ route('contact') }}" class="text-blue-600 hover:text-blue-700 font-medium transition duration-150 block mt-2">Nous contacter</a>
                 </div>
