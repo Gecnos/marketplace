@@ -27,6 +27,7 @@ class User extends Authenticatable
         'role',
         'entreprise',
         'categorie_id',
+        'description',
     ];
 
     /**
@@ -56,5 +57,43 @@ class User extends Authenticatable
     public function category()
     {
         return $this->belongsTo(Category::class, 'categorie_id');
+    }
+
+    /**
+     * Get all of the reviews for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'provider_id');
+    }
+
+    /**
+     * Get all of the user's media.
+     */
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'mediable');
+    }
+
+    /**
+     * Get the verification associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function verification()
+    {
+        return $this->hasOne(Verification::class, 'provider_id');
+    }
+
+    /**
+     * Get the subscription associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class, 'provider_id');
     }
 }

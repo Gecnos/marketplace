@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
-
+use App\Http\Controllers\PublicProfileController;
+use App\Http\Controllers\providerdashboardController;
 
 Route::get ('/', function () {return view('welcome');})->name('welcome');
 
@@ -22,3 +23,14 @@ Route::get('/search', [HomeController::class, 'search'])->name('search.results')
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 Route::get('/categories/{slug}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('/about_us', function () {return view('about_us');})->name('about_us');
+
+Route::get('/provider/dashboard', [App\Http\Controllers\providerdashboardController::class, 'index'])
+    ->middleware(['auth', 'provider'])
+    ->name('provider.dashboard');
+
+Route::get('/prestataire/{user}', [PublicProfileController::class, 'show'])->name('provider.profile');
+
+Route::put('/provider/settings', [providerdashboardController::class, 'update'])->name('provider.settings.update');
+
+Route::post('/provider/gallery', [providerdashboardController::class, 'upload'])->name('provider.gallery.upload');
+

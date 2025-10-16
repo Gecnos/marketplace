@@ -100,7 +100,7 @@
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Mon Compte</h3>
                 <ul class="space-y-3 text-sm">
                     <li><a href="{{ route('auth.login') }}" class="text-gray-600 hover:text-blue-600 transition duration-150">Se connecter</a></li>
-                    <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">Mon profil</a></li>
+                    <li><a href="{{ route('provider.dashboard') }}" class="text-gray-600 hover:text-blue-600 transition duration-150">Mon profil</a></li>
                     <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">Mes favoris</a></li>
                     <li><a href="#" class="text-gray-600 hover:text-blue-600 transition duration-150">Centre d'aide</a></li>
                 </ul>
